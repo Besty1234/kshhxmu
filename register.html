@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>登录</title>
+  <link rel="stylesheet" href="./bootstrap/bootstrap.min.css" />
+  <link rel="stylesheet" href="./bootstrap/bootstrap-icons.css" />
+  <link rel="stylesheet" href="./css/common.css" />
+  <link rel="stylesheet" href="./css/login.css" />
+  <style></style>
+</head>
+
+<body class="application application-offset">
+  <div class="container-fluid container-application">
+    <div class="main-content position-relative">
+      <!-- Page content -->
+      <div class="page-content">
+        <div class="min-vh-100 py-5 d-flex align-items-center">
+          <div class="w-100">
+            <div class="row justify-content-center">
+              <div class="col-sm-8 col-lg-4">
+                <div class="card shadow zindex-100 mb-0">
+                  <div class="card-body px-md-5 py-5">
+                    <div class="mb-5">
+                      <h6 class="h3">传智教育-注册</h6>
+                    </div>
+                    <span class="clearfix"></span>
+                    <form role="form" autocomplete="off">
+                      <div class="form-group">
+                        <label class="form-control-label">账号</label>
+                        <div class="input-group input-group-merge">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="bi bi-person"></i></span>
+                          </div>
+                          <input name="username" type="text" class="form-control" id="input-email"
+                            placeholder="请输入账号" />
+                        </div>
+                      </div>
+                      <div class="form-group mb-4">
+                        <div class="d-flex align-items-center justify-content-between">
+                          <div>
+                            <label class="form-control-label">密码</label>
+                          </div>
+                          <div class="mb-2">
+                            <a href="javascript:;"
+                              class="small text-muted text-underline--dashed border-primary">忘记密码</a>
+                          </div>
+                        </div>
+                        <div class="input-group input-group-merge">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="bi bi-key"></i></span>
+                          </div>
+                          <input name="password" type="password" class="form-control" id="input-password"
+                            placeholder="请输入密码" />
+                          <div class="input-group-append">
+                            <span class="input-group-text">
+                              <a href="javascript:;" data-toggle="password-text" data-target="#input-password">
+                                <i class="bi bi-eye-fill text-blue"></i>
+                              </a>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="mt-4">
+                        <button id="btn-register" type="button"
+                          class="btn btn-sm btn-info btn-icon btn-blue rounded-pill">
+                          <span class="btn-inner--text">注册</span>
+                          <span class="btn-inner--icon"><i class="bi bi-arrow-right"></i></span>
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="card-footer px-md-5">
+                    <small>已经注册？</small> <a href="./login.html" class="small font-weight-bold text-blue">去登录吧</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- toast -->
+  <div class="position-fixed top-0 start-50 pt-4" style="z-index: 999; transform: translateX(-50%)">
+    <div id="myToast" class="toast bg-rgba">
+      <div class="toast-body">提示消息</div>
+    </div>
+  </div>
+  <script src="./bootstrap/bootstrap.min.js"></script>
+  <script src="./lib/form-serialize.js"></script>
+  <script src="./lib/axios.js"></script>
+  <script src="./js/common.js"></script>
+  <script>
+
+
+    // tip(123465) // 因为已将导入了对应的js文件可以使用
+
+    // 所有填空的 都要非空判断
+
+    // 给注册按钮添加点击事件 
+    document.querySelector('#btn-register').addEventListener('click', async () => {
+
+      // 利用 serialize 插件做非空判断
+      const data = new serialize(document.querySelector('form'), { hash: true })
+
+      // 为什么要加上return 因为后面代码都不执行
+      if (!data.username) return tip('请输入账号')
+      if (!data.password) return tip('请输入账号')
+
+      if (data.username.length < 2 || data.username.length > 30) return tip('请输入2-30子')
+      if (data.password.length < 6 || data.password.length > 30) return tip('请输入6-30子')
+
+
+      //
+      try {
+        const res = await axios({
+          url: './register',
+          method: 'post',
+          data
+        })
+        tip('登录成功')
+        setTimeout(() => {
+          location.href = './login.html'
+
+        }, 1000)
+
+      } catch (err) {
+
+        console.dir(err);
+
+        // 利用返回的错误信息 用tip轻提示显示
+        tip(err.response.data.message)
+
+      }
+
+    })
+
+    // 显示密码 
+    document.querySelector('.text-blue').addEventListener('click',()=>{
+
+      // 获取 password 元素的input
+     const inpupass = document.querySelector('#input-password')
+
+     // 点击后判断type 的值是否是 password 是就=
+     if(inpupass.type == 'password'){
+      inpupass.type = 'Text'
+     }else{
+      inpupass.type= 'password'
+     }
+
+    })
+    
+
+ 
+  </script>
+</body>
+
+</html>

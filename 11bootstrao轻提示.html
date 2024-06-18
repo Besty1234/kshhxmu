@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./bootstrap/bootstrap.min.css">
+</head>
+<body>
+    <button class="btn">登录成功</button>
+    <div
+    id="liveToast"
+    class="toast"
+    role="alert"
+    aria-live="assertive"
+    aria-atomic="true"
+  >
+    登录成功
+  </div>
+
+  
+    
+    <script src="./bootstrap/bootstrap.min.js"></script>
+
+    <script>
+      document.querySelector('.btn').addEventListener('click',()=>{
+
+        //但凡是用别人写的代码都要 new
+        //                                    (放获取提示的div)
+        const toast = new bootstrap.Toast(document.querySelector('#liveToast'),{
+
+            // 1.5秒消失
+            delay:1500
+        })
+        // 显示
+        toast.show()
+      })
+
+      // 相当于轻提示 替代了 alert()是
+
+
+
+
+      
+    </script>
+</body>
+</html>

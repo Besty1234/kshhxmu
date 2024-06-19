@@ -26,3 +26,14 @@ function tip(mis){
 
  // 设置基地址
  axios.defaults.baseURL='http://ajax-api.itheima.net'
+
+
+ // 渲染名字
+ const token = document.querySelector('.media>div>span')
+
+ // 判断是否获取到在执行 方法1
+  token&&(token.innerHTM= localStorage.getItem('token'))
+  // 方法2 获取到就更改
+  // if(token){
+  //   token.innerHTM= localStorage.getItem('token')
+  // }

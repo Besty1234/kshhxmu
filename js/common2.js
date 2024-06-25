@@ -23,3 +23,17 @@ function tip(min){
 // 设置基地址
 axios.defaults.baseURL='http://ajax-api.itheima.net'
 
+  
+   async function umn(){
+  
+    const res = await axios({
+      url:''
+
+    })
+
+
+
+}
+
+
+

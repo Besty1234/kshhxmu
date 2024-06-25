@@ -29,11 +29,45 @@ function tip(mis){
 
 
  // 渲染名字
- const token = document.querySelector('.media>div>span')
+ const span = document.querySelector('.media>div>span')
+
+ console.log(span)
+
 
  // 判断是否获取到在执行 方法1
-  token&&(token.innerHTM= localStorage.getItem('token'))
+
+ span&&(span.innerHTML=localStorage.getItem('username'))
+ 
   // 方法2 获取到就更改
-  // if(token){
-  //   token.innerHTM= localStorage.getItem('token')
+  // if(span){
+  //   span.innerHTML=localStorage.getItem('username')
   // }
+
+
+
+  // 点击 退出
+  const logoutdl = document.querySelector('#logout')
+  logoutdl&&logoutdl.addEventListener('click',()=>{
+     
+    localStorage.clear() // 扩展删除本网站所有存储
+
+    location.href='./login.html'
+  })
+
+
+  // 添加请求拦截器   拦截所有请求
+  // config 代表 发送请求的相关全部信息
+axios.interceptors.request.use(function (config) {
+  // 在发送请求之前做些什么  
+  // 如果给拦截加请求头 那么所有请求就会有这个请求头
+  if(localStorage.getItem('token')){ // 新用户一来没token 所以做个判断
+  config.headers.Authorizsation = localStorage.getItem('token') // 因为是一个对象那么既可以点
+
+  }
+  return config;   // 如果拦截后不反回，代表发送请求失败
+}, function (error) {
+  // 对请求错误做些什么
+  return Promise.reject(error);
+});  // 避免以后每次发请求都要写请求头
+
+ 

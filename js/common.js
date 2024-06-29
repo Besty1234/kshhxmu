@@ -70,4 +70,21 @@ axios.interceptors.request.use(function (config) {
   return Promise.reject(error);
 });  // 避免以后每次发请求都要写请求头
 
+
+
+// 响应拦截
+axios.interceptors.response.use(function (response) {
+  
+  return response.data;   // 返回里写什么就返回什么   response 代表响应的数据
+}, function (error) {
+ // 判断错误是不是401 代表token错误
+ if(error.response.status === 401){
+
+  localStorage.clear()
+  // 返回登录页并清空token
+  location.href = '.login.html'
+
+}
+  return Promise.reject(error)
+});
  

@@ -55,13 +55,13 @@ function tip(mis){
   })
 
 
-  // 添加请求拦截器   拦截所有请求
+  // 添加请求拦截器   拦截所有请求  让所有请求携带token
   // config 代表 发送请求的相关全部信息
 axios.interceptors.request.use(function (config) {
   // 在发送请求之前做些什么  
   // 如果给拦截加请求头 那么所有请求就会有这个请求头
   if(localStorage.getItem('token')){ // 新用户一来没token 所以做个判断
-  config.headers.Authorizsation = localStorage.getItem('token') // 因为是一个对象那么既可以点
+  config.headers.Authorization = localStorage.getItem('token') // 因为是一个对象那么既可以点
 
   }
   return config;   // 如果拦截后不反回，代表发送请求失败
@@ -72,7 +72,7 @@ axios.interceptors.request.use(function (config) {
 
 
 
-// 响应拦截
+// 响应拦截   如果响应返回的是错误，拦截就可以把他给改了在反回去
 axios.interceptors.response.use(function (response) {
   
   return response.data;   // 返回里写什么就返回什么   response 代表响应的数据
@@ -88,3 +88,6 @@ axios.interceptors.response.use(function (response) {
   return Promise.reject(error)
 });
  
+const sun =(num1,num2)=>{
+  return num1+num2
+}

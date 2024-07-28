@@ -272,7 +272,35 @@
     <script src="./lib/form-serialize.js"></script>
     <script src="./js/common.js"></script>
     <script>
-      
+     async function  styden(){
+        const res = await axios({
+          url:'/students'
+        })
+
+        console.log(res.data.length)
+
+        document.querySelector('.total').innerHTML = res.data.length
+       document.querySelector('.list').innerHTML = res.data.map(v=>{
+        const {id,user_id,name,age,gender,hope_salary,salary,province,city,area} = v
+          return `
+          <tr>
+            <td>${name}</td>
+                      <td>${age}</td>
+                      <td>男</td>
+                      <td>第2组</td>
+                      <td>${hope_salary}</td>
+                      <td>${salary}</td>
+                      <td>${province}${city}${area}</td>
+                      <td>
+                        <a href="javascript:;" class="text-success mr-3"><i class="bi bi-pen"></i></a>
+                        <a href="javascript:;" class="text-danger"><i class="bi bi-trash"></i></a>
+                      </td>
+                    </tr>
+          `
+        }).join('')
+
+      }
+      styden()
     </script>
   </body>
 </html>
